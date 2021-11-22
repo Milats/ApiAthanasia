@@ -4,6 +4,8 @@ namespace ApiAthanasia.Services
 {
     public interface ISaleService
     {
-        public void Add(SaleRequest model) { }
+        public string Add(SaleRequest model) {
+            return this.Add(model);
+        }
     }
 }

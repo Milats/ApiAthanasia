@@ -44,7 +44,7 @@ namespace ApiAthanasia.Controllers
             Response R = new Response();
             try
             {
-                this._sale.Add(saleRequested);
+                R.Message = this._sale.Add(saleRequested);
                 R.Success = true;
             }
             catch (Exception ex)

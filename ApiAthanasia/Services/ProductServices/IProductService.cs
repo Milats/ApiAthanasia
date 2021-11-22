@@ -2,9 +2,6 @@
 {
     public interface IProductService
     {
-        public void ActualizeQuantity()
-        {
 
-        }
     }
 }
