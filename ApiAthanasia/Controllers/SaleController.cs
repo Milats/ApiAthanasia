@@ -22,6 +22,7 @@ namespace ApiAthanasia.Controllers
                     R.Success = true;
                     R.Message = "SaleGet Succesful";
                     R.Data = saleList;
+                    //Kebab
                 }
             }
             catch (Exception ex)
