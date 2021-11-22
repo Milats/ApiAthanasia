@@ -1,5 +1,7 @@
 ﻿using ApiAthanasia.Models;
+using ApiAthanasia.Models.Request;
 using ApiAthanasia.Models.Response;
+using ApiAthanasia.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,12 @@ namespace ApiAthanasia.Controllers
     [ApiController]
     public class SaleController : ControllerBase
     {
+        private ISaleService _sale;
+        public SaleController(ISaleService sale)
+        {
+            this._sale = sale;
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -22,12 +30,26 @@ namespace ApiAthanasia.Controllers
                     R.Success = true;
                     R.Message = "SaleGet Succesful";
                     R.Data = saleList;
-                    //Kebab
                 }
             }
             catch (Exception ex)
             {
                 R.Message = ex.Message;
+            }
+            return Ok(R);
+        }
+        [HttpPost]
+        public IActionResult Add(SaleRequest saleRequested)
+        {
+            Response R = new Response();
+            try
+            {
+                this._sale.Add(saleRequested);
+                R.Success = true;
+            }
+            catch (Exception ex)
+            {
+                R.Message = ex.Message;  
             }
             return Ok(R);
         }

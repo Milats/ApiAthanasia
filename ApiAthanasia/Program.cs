@@ -1,3 +1,6 @@
+using ApiAthanasia.Services;
+using ApiAthanasia.Services.SaleServices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //MyCors declaration
@@ -15,6 +18,10 @@ var MyAllowSpecificOrigins = "MiCors";
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//My services are here
+builder.Services.AddScoped<ISaleService, SaleService>();
+
 
 var app = builder.Build();
 

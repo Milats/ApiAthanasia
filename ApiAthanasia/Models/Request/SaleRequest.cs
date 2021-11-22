@@ -12,17 +12,10 @@ namespace ApiAthanasia.Models.Request
         [ClientExits(ErrorMessage =
             "IDClient doesn't exists")]
         public int IDUserClient { get; set; }   
-        public DateTime Date { get; set; }
-        public decimal Total { get; set; }
         [Required]
         [MinLength(1, ErrorMessage =
             "Sale without products")]
         public List<SaleDetail> saleDetails { get; set; }
-
-        public SaleRequest()
-        {
-            this.Date = DateTime.Now;
-        }
     }
 
     public class SaleDetail
