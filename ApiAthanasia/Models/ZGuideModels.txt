@@ -1,0 +1,3 @@
+﻿MODELS EXPLANATION
+
+In this folders exists 4 types of files.
