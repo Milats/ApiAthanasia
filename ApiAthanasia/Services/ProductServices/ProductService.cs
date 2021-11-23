@@ -1,4 +1,5 @@
 ﻿using ApiAthanasia.Models;
+using ApiAthanasia.Models.Exceptions;
 
 namespace ApiAthanasia.Services.ProductServices
 {
@@ -20,6 +21,25 @@ namespace ApiAthanasia.Services.ProductServices
             catch (Exception ex)
             {
             }
+        }
+        public bool CheckAvailableProductStock(int product, int qty)
+        {
+            bool res = false;
+            try
+            {
+                using (AthanasiaContext DB = new AthanasiaContext())
+                {
+                    Product checkProduct = DB.Products.Find(product);
+                    if (checkProduct.Quantity >= qty)
+                    {
+                        res = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return res;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using ApiAthanasia.Models;
+using ApiAthanasia.Models.Exceptions;
 using ApiAthanasia.Models.Request;
 using ApiAthanasia.Models.Response;
 using ApiAthanasia.Services;
+using ApiAthanasia.Services.ProductServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,10 +44,22 @@ namespace ApiAthanasia.Controllers
         public IActionResult Add(SaleRequest saleRequested)
         {
             Response R = new Response();
+            ProductService pS = new ProductService();
             try
             {
+                foreach (var saleDetail in saleRequested.saleDetails)
+                {
+                    if (!pS.CheckAvailableProductStock(saleDetail.IDProduct, saleDetail.Quantity))
+                    {
+                        throw new OutOfStock(saleDetail.IDProduct);
+                    }
+                }
                 R.Message = this._sale.Add(saleRequested);
                 R.Success = true;
+            }
+            catch (OutOfStock o)
+            {
+                R.Message = o.Message;
             }
             catch (Exception ex)
             {

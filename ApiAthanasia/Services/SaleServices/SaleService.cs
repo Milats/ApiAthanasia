@@ -1,4 +1,5 @@
 ﻿using ApiAthanasia.Models;
+using ApiAthanasia.Models.Exceptions;
 using ApiAthanasia.Models.Request;
 using ApiAthanasia.Services;
 using ApiAthanasia.Services.ProductServices;
@@ -16,7 +17,7 @@ namespace ApiAthanasia.Services.SaleServices
             Or the transaction completes 100% or it even existed"
             Also, Transaction literally blocks all the tables that
             are involved in the real transaction.*/
-            ProductService al = new ProductService();
+            ProductService pS = new ProductService();
             using (AthanasiaContext DB = new AthanasiaContext())
             {
                 decimal total = 0;
@@ -37,16 +38,21 @@ namespace ApiAthanasia.Services.SaleServices
 
                         foreach (var saleDetail in saleRequested.saleDetails)
                         {
-                            var newSaleDetail = new Models.SaleDetail();
-                            newSaleDetail.Idsale = newSale.Id;
-                            newSaleDetail.Idproduct = saleDetail.IDProduct;
-                            newSaleDetail.Quantity = saleDetail.Quantity;
-                            al.ReduceQuantityBySale(saleDetail.IDProduct, saleDetail.Quantity);
-                            DB.SaleDetails.Add(newSaleDetail);
-                            DB.SaveChanges();
+                                var newSaleDetail = new Models.SaleDetail();
+                                newSaleDetail.Idsale = newSale.Id;
+                                newSaleDetail.Idproduct = saleDetail.IDProduct;
+                                newSaleDetail.Quantity = saleDetail.Quantity;
+                                pS.ReduceQuantityBySale(saleDetail.IDProduct, saleDetail.Quantity);
+                                DB.SaleDetails.Add(newSaleDetail);
+                                DB.SaveChanges();
                         }
                         transaction.Commit();
                         res = "Succesful sale transaction";
+                    }
+                    catch (OutOfStock oOS)
+                    {
+                        transaction.Rollback();
+                        res = oOS.Message;
                     }
                     catch (Exception ex)
                     {

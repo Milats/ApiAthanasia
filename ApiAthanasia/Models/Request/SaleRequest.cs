@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ApiAthanasia.Services.ProductServices;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiAthanasia.Models.Request
 {
@@ -20,7 +21,9 @@ namespace ApiAthanasia.Models.Request
 
     public class SaleDetail
     {
+        [Required]
         public int IDProduct { get; set; }
+        [Required]
         public int Quantity { get; set; }
     }
 
