@@ -40,6 +40,7 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        //Finished
         [HttpPost]
         public IActionResult Add(SaleRequest saleRequested)
         {
@@ -47,19 +48,11 @@ namespace ApiAthanasia.Controllers
             ProductService pS = new ProductService();
             try
             {
-                foreach (var saleDetail in saleRequested.saleDetails)
+                R = pS.CheckAvailableProductStock(saleRequested);
+                if (R.Success)
                 {
-                    if (!pS.CheckAvailableProductStock(saleDetail.IDProduct, saleDetail.Quantity))
-                    {
-                        throw new OutOfStock(saleDetail.IDProduct);
-                    }
+                    R = this._sale.Add(saleRequested);
                 }
-                R.Message = this._sale.Add(saleRequested);
-                R.Success = true;
-            }
-            catch (OutOfStock o)
-            {
-                R.Message = o.Message;
             }
             catch (Exception ex)
             {

@@ -1,5 +1,7 @@
 ﻿using ApiAthanasia.Models;
 using ApiAthanasia.Models.Exceptions;
+using ApiAthanasia.Models.Request;
+using ApiAthanasia.Models.Response;
 
 namespace ApiAthanasia.Services.ProductServices
 {
@@ -28,24 +30,33 @@ namespace ApiAthanasia.Services.ProductServices
                 }
             }      
         }
-        public bool CheckAvailableProductStock(int product, int qty)
+        public Response CheckAvailableProductStock(SaleRequest list)
         {
-            bool res = false;
+            Response R = new Response();
             try
             {
                 using (AthanasiaContext DB = new AthanasiaContext())
                 {
-                    Product checkProduct = DB.Products.Find(product);
-                    if (checkProduct.Quantity >= qty)
+                    foreach (var saleProduct in list.saleDetails)
                     {
-                        res = true;
+                        Product checkProduct = DB.Products.Find(saleProduct.IDProduct);
+                        if (checkProduct.Quantity < saleProduct.Quantity)
+                        {
+                            throw new OutOfStock(checkProduct.Id);
+                        }
                     }
                 }
+                R.Success = true;
             }
-            catch (Exception)
+            catch(OutOfStock EX)
             {
+                R.Message = EX.Message;
             }
-            return res;
+            catch (Exception ex)
+            {
+                R.Message = ex.Message;
+            }
+            return R;
         }
     }
 }

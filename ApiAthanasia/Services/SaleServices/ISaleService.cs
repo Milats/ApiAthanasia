@@ -1,10 +1,11 @@
 ﻿using ApiAthanasia.Models.Request;
+using ApiAthanasia.Models.Response;
 
 namespace ApiAthanasia.Services
 {
     public interface ISaleService
     {
-        public string Add(SaleRequest model) {
+        public Response Add(SaleRequest model) {
             return this.Add(model);
         }
     }

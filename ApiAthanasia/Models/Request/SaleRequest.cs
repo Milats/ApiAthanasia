@@ -10,7 +10,7 @@ namespace ApiAthanasia.Models.Request
         [Required]
         [Range(1, Double.MaxValue, ErrorMessage =
             "IDClient invalid")]
-        [ClientExits(ErrorMessage =
+        [ClientExists(ErrorMessage =
             "IDClient doesn't exists")]
         public int IDUserClient { get; set; }   
         [Required]
@@ -34,7 +34,7 @@ namespace ApiAthanasia.Models.Request
     /*In this region I can create restrictions for request that
      the FrontEnd makes me from the Sale Type.*/
     #region Validations
-    public class ClientExitsAttribute : ValidationAttribute
+    public class ClientExistsAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

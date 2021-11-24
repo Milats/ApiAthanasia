@@ -11,7 +11,6 @@ namespace ApiAthanasia.Models.Request
         [Required]
         public string Password { get; set; }
     }
-
     public class EmailExistsAttribute: ValidationAttribute
     {
         public override bool IsValid(object? value)
