@@ -23,7 +23,7 @@ builder.Services.AddControllers();
 //My services are here
 builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddScoped<IUserClientService, UserClientService>();
-
+builder.Services.AddScoped<IUserAdminService, UserAdminService>();
 
 var app = builder.Build();
 

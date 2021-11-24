@@ -2,15 +2,15 @@
 
 namespace ApiAthanasia.Models.Request
 {
-    public class AuthClientRequest
+    public class AuthRequest
     {
         [Required]
-        [EmailExists(ErrorMessage=
-            "Email doesn't exists")]
+        //[EmailExists(ErrorMessage="Email doesn't exists")]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
     }
+    /*
     public class EmailExistsAttribute: ValidationAttribute
     {
         public override bool IsValid(object? value)
@@ -30,4 +30,5 @@ namespace ApiAthanasia.Models.Request
             return false;
         }
     }
+    */
 }

@@ -39,12 +39,18 @@ namespace ApiAthanasia.Models.Request
         public override bool IsValid(object value)
         {
             int idClient = (int)value;
-            using (var db = new Models.AthanasiaContext())
+            try
             {
-                if (db.UserClients.Find(idClient) == null)
+                using (var db = new Models.AthanasiaContext())
                 {
-                    return false;
+                    if (db.UserClients.Find(idClient) == null)
+                    {
+                        return false;
+                    }
                 }
+            }
+            catch (Exception)
+            {
             }
             return true;
         }
@@ -54,12 +60,18 @@ namespace ApiAthanasia.Models.Request
         public override bool IsValid(object value)
         {
             int idClient = (int)value;
-            using (var db = new Models.AthanasiaContext())
+            try
             {
-                if (db.Products.Find(idClient) == null)
+                using (var db = new Models.AthanasiaContext())
                 {
-                    return false;
+                    if (db.Products.Find(idClient) == null)
+                    {
+                        return false;
+                    }
                 }
+            }
+            catch (Exception)
+            {
             }
             return true;
         }

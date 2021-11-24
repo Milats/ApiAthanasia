@@ -5,7 +5,7 @@ using ApiAthanasia.Tools;
 
 namespace ApiAthanasia.Services.UserServices
 {
-    public class UserClientService : IUserClientService
+    public class UserAdminService: IUserAdminService
     {
         public UserResponse Auth(AuthRequest model)
         {
@@ -13,7 +13,7 @@ namespace ApiAthanasia.Services.UserServices
             using (var DB = new AthanasiaContext())
             {
                 string encryptedPassword = Encrypt.GetSHA256(model.Password);
-                var user = DB.UserClients.Where(u=>
+                var user = DB.UserAdmins.Where(u =>
                 u.Email == model.Email && u.Password == encryptedPassword)
                     .FirstOrDefault();
                 if (user == null)

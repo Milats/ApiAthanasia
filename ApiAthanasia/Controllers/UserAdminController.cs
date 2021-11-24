@@ -8,19 +8,19 @@ namespace ApiAthanasia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserClientController : ControllerBase
+    public class UserAdminController : ControllerBase
     {
-        private IUserClientService _userClientService;
-        public UserClientController(IUserClientService userClientService)
+        private IUserAdminService _userAdminService;
+        public UserAdminController(IUserAdminService userAdminService)
         {
-            _userClientService = userClientService;
+            _userAdminService = userAdminService;
         }
 
         [HttpPost("login")]
-        public IActionResult Authentification([FromBody]AuthRequest model)
+        public IActionResult Authentification([FromBody] AuthRequest model)
         {
             Response R = new Response();
-            var userResponse = _userClientService.Auth(model);
+            var userResponse = _userAdminService.Auth(model);
 
             if (userResponse == null)
             {
@@ -32,6 +32,5 @@ namespace ApiAthanasia.Controllers
 
             return Ok(R);
         }
-
     }
 }
