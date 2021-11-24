@@ -7,20 +7,26 @@ namespace ApiAthanasia.Services.ProductServices
     {
         public void ReduceQuantityBySale(int product, int qty)
         {
-            try
+
+            using (AthanasiaContext DB = new AthanasiaContext())
             {
-                using (AthanasiaContext DB = new AthanasiaContext())
+                using (var transaction = DB.Database.BeginTransaction())
                 {
-                    Product editProduct = DB.Products.Find(product);
-                    editProduct.Quantity -= qty;
-                    DB.Entry(editProduct).State = Microsoft.EntityFrameworkCore
-                        .EntityState.Modified;
-                    DB.SaveChanges();
+                    try
+                    {
+                        Product editProduct = DB.Products.Find(product);
+                        editProduct.Quantity -= qty;
+                       DB.Entry(editProduct).State = Microsoft.EntityFrameworkCore
+                            .EntityState.Modified;
+                        DB.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-            }
+            }      
         }
         public bool CheckAvailableProductStock(int product, int qty)
         {
@@ -36,7 +42,7 @@ namespace ApiAthanasia.Services.ProductServices
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
             return res;

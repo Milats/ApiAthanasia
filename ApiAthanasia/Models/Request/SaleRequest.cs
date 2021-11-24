@@ -22,8 +22,12 @@ namespace ApiAthanasia.Models.Request
     public class SaleDetail
     {
         [Required]
+        [ProductExists(ErrorMessage =
+            "The product doesn't exists in DB")]
         public int IDProduct { get; set; }
         [Required]
+        [Range(1, Double.MaxValue, ErrorMessage =
+            "Quantity must be superior to 0")]
         public int Quantity { get; set; }
     }
 
@@ -38,6 +42,21 @@ namespace ApiAthanasia.Models.Request
             using (var db = new Models.AthanasiaContext())
             {
                 if (db.UserClients.Find(idClient) == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+    public class ProductExistsAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            int idClient = (int)value;
+            using (var db = new Models.AthanasiaContext())
+            {
+                if (db.Products.Find(idClient) == null)
                 {
                     return false;
                 }

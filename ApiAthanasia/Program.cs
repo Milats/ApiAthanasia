@@ -1,5 +1,6 @@
 using ApiAthanasia.Services;
 using ApiAthanasia.Services.SaleServices;
+using ApiAthanasia.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddControllers();
 
 //My services are here
 builder.Services.AddScoped<ISaleService, SaleService>();
+builder.Services.AddScoped<IUserClientService, UserClientService>();
 
 
 var app = builder.Build();
