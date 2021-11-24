@@ -53,3 +53,4 @@ D:\israe\Estudio\8°\Aplicaciones Móviles\Athanasia\Apps\ApiAthanasia\ApiAthana
 D:\israe\Estudio\8°\Aplicaciones Móviles\Athanasia\Apps\ApiAthanasia\ApiAthanasia\obj\Debug\net6.0\ApiAthanasia.pdb
 D:\israe\Estudio\8°\Aplicaciones Móviles\Athanasia\Apps\ApiAthanasia\ApiAthanasia\obj\Debug\net6.0\ApiAthanasia.genruntimeconfig.cache
 D:\israe\Estudio\8°\Aplicaciones Móviles\Athanasia\Apps\ApiAthanasia\ApiAthanasia\obj\Debug\net6.0\ApiAthanasia.csproj.AssemblyReference.cache
+D:\israe\Estudio\8°\Aplicaciones Móviles\Athanasia\Apps\ApiAthanasia\ApiAthanasia\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

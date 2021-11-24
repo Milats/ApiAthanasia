@@ -4,7 +4,7 @@ using ApiAthanasia.Models.Request;
 using ApiAthanasia.Models.Response;
 using ApiAthanasia.Services;
 using ApiAthanasia.Services.ProductServices;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiAthanasia.Controllers
@@ -19,6 +19,7 @@ namespace ApiAthanasia.Controllers
             this._sale = sale;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -40,7 +41,8 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
-        //Finished
+
+        [Authorize(Roles = "client")]
         [HttpPost]
         public IActionResult Add(SaleRequest saleRequested)
         {

@@ -1,6 +1,7 @@
 ﻿using ApiAthanasia.Models.Request;
 using ApiAthanasia.Models.Response;
 using ApiAthanasia.Services.UserServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +16,6 @@ namespace ApiAthanasia.Controllers
         {
             _userAdminService = userAdminService;
         }
-
         [HttpPost("login")]
         public IActionResult Authentification([FromBody] AuthRequest model)
         {
@@ -28,6 +28,7 @@ namespace ApiAthanasia.Controllers
                 return BadRequest(R);
             }
             R.Success = true;
+            R.Message = "Succesful login";
             R.Data = userResponse;
 
             return Ok(R);

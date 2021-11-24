@@ -28,6 +28,7 @@ namespace ApiAthanasia.Controllers
                 return BadRequest(R);
             }
             R.Success = true;
+            R.Message = "Succesful login";
             R.Data = userResponse;
 
             return Ok(R);

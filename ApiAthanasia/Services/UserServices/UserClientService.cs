@@ -1,12 +1,23 @@
 ﻿using ApiAthanasia.Models;
+using ApiAthanasia.Models.Common;
 using ApiAthanasia.Models.Request;
 using ApiAthanasia.Models.Response;
 using ApiAthanasia.Tools;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace ApiAthanasia.Services.UserServices
 {
     public class UserClientService : IUserClientService
     {
+        private readonly AppSettings _appSettings;
+        public UserClientService(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+        }
         public UserResponse Auth(AuthRequest model)
         {
             UserResponse responseUserClient = new UserResponse();
@@ -21,9 +32,30 @@ namespace ApiAthanasia.Services.UserServices
                     return null;
                 }
                 responseUserClient.Email = user.Email;
-                //responseUserClient.Token = GetToken(user);
+                responseUserClient.Token = GetToken(user);
             }
             return responseUserClient;
+        }
+        private string GetToken(UserClient userClient)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var llave = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(
+                    new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, userClient.Id.ToString()),
+                    new Claim(ClaimTypes.Email, userClient.Email),
+                    new Claim(ClaimTypes.Role, "client")
+                }),
+                Expires = DateTime.UtcNow.AddDays(60),
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(llave),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
