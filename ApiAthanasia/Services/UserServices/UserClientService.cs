@@ -33,6 +33,7 @@ namespace ApiAthanasia.Services.UserServices
                 }
                 responseUserClient.Email = user.Email;
                 responseUserClient.Token = GetToken(user);
+                responseUserClient.ID = user.Id;
             }
             return responseUserClient;
         }

@@ -9,7 +9,6 @@ namespace ApiAthanasia.Services.ProductServices
     {
         public void ReduceQuantityBySale(int product, int qty)
         {
-
             using (AthanasiaContext DB = new AthanasiaContext())
             {
                 using (var transaction = DB.Database.BeginTransaction())
