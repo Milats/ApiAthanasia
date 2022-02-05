@@ -1,5 +1,6 @@
 using ApiAthanasia.Models.Common;
 using ApiAthanasia.Services;
+using ApiAthanasia.Services.ClientsServices;
 using ApiAthanasia.Services.SaleServices;
 using ApiAthanasia.Services.UserServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -54,6 +55,7 @@ builder.Services.AddAuthentication(d =>
 builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddScoped<IUserClientService, UserClientService>();
 builder.Services.AddScoped<IUserAdminService, UserAdminService>();
+builder.Services.AddScoped<IClientsService, ClientsService>();
 #endregion
 var app = builder.Build();
 

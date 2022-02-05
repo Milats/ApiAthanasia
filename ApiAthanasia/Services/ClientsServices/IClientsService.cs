@@ -1,4 +1,5 @@
-﻿using ApiAthanasia.Models.Response;
+﻿using ApiAthanasia.Models.Request;
+using ApiAthanasia.Models.Response;
 
 namespace ApiAthanasia.Services.ClientsServices
 {
@@ -7,6 +8,10 @@ namespace ApiAthanasia.Services.ClientsServices
         public Response Get()
         {
             return this.Get();
+        }
+        public Response Add(NewClientRequest client)
+        {
+            return this.Add(client);
         }
     }
 }

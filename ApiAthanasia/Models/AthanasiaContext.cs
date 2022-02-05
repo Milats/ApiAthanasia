@@ -26,7 +26,7 @@ namespace ApiAthanasia.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Athanasia;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=SQL5109.site4now.net;Initial Catalog=db_a8210f_athanasia;User Id=db_a8210f_athanasia_admin;Password=ratchet663");
             }
         }
 

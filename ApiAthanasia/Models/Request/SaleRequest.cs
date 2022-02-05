@@ -1,5 +1,4 @@
-﻿using ApiAthanasia.Services.ProductServices;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ApiAthanasia.Models.Request
 {
@@ -38,12 +37,12 @@ namespace ApiAthanasia.Models.Request
     {
         public override bool IsValid(object value)
         {
-            int idClient = (int)value;
+            int idProduct = (int)value;
             try
             {
                 using (var db = new Models.AthanasiaContext())
                 {
-                    if (db.UserClients.Find(idClient) == null)
+                    if (db.UserClients.Find(idProduct) == null)
                     {
                         return false;
                     }

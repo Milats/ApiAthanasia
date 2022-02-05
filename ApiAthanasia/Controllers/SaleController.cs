@@ -19,7 +19,7 @@ namespace ApiAthanasia.Controllers
             this._sale = sale;
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Get()
         {

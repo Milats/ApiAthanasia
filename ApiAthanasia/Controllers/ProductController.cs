@@ -31,6 +31,26 @@ namespace ApiAthanasia.Controllers
                 R.Message = ex.Message;
             }
             return Ok(R);
-        }        
+        }
+        [HttpGet("{id:int}")]
+        public IActionResult GetSpecifiedProduct(int id)
+        {
+            Response R = new Response();
+            try
+            {
+                using (AthanasiaContext DB = new AthanasiaContext())
+                {
+                    var product = DB.Products.Where(product => product.Id == id).ToList();
+                    R.Success = true;
+                    R.Message = "GetSpecifiedProduct Succesful";
+                    R.Data = product;
+                }
+            }
+            catch (Exception ex)
+            {
+                R.Message = ex.Message;
+            }
+            return Ok(R);
+        }
     }
 }
