@@ -16,6 +16,7 @@ namespace ApiAthanasia.Models
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Cost { get; set; }
+        public string ImageURL { get; set; }
 
         public virtual ICollection<SaleDetail> SaleDetails { get; set; }
     }
