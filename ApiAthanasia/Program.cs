@@ -1,6 +1,7 @@
 using ApiAthanasia.Models.Common;
 using ApiAthanasia.Services;
 using ApiAthanasia.Services.ClientsServices;
+using ApiAthanasia.Services.ProductServices;
 using ApiAthanasia.Services.SaleServices;
 using ApiAthanasia.Services.ShoppingCartServices;
 using ApiAthanasia.Services.UserServices;
@@ -58,6 +59,7 @@ builder.Services.AddScoped<IUserClientService, UserClientService>();
 builder.Services.AddScoped<IUserAdminService, UserAdminService>();
 builder.Services.AddScoped<IClientsService, ClientsService>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 #endregion
 var app = builder.Build();
 

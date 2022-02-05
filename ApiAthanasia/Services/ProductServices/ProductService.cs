@@ -57,5 +57,86 @@ namespace ApiAthanasia.Services.ProductServices
             }
             return R;
         }
-    }
+        public Response AddProduct(ProductRequest request)
+        {
+            Response R = new Response();
+            using(AthanasiaContext DB = new AthanasiaContext())
+            {
+                using (var transaction = DB.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var newProduct = new Product();
+                        newProduct.Name = request.Name;
+                        newProduct.Genre = request.Genre;
+                        newProduct.Quantity = request.Quantity;
+                        newProduct.UnitPrice = request.UnitPrice;
+                        newProduct.Cost = request.Cost;
+                        newProduct.ImageURL = request.ImageURL;
+
+                        DB.Products.Add(newProduct);
+                        DB.SaveChanges();
+                        R.Success = true;
+                        R.Message = "New Product added succesful";
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        R.Message = ex.Message;
+                    }
+                    return R;
+                }
+            }
+        }
+        public Response UpdateProduct(ProductRequest request, int id)
+        {
+            Response R = new Response();
+            using (AthanasiaContext DB = new AthanasiaContext())
+            {
+                    try
+                    {
+                        var newProduct = new Product();
+                        newProduct.Id = id;
+                        newProduct.Name = request.Name;
+                        newProduct.Genre = request.Genre;
+                        newProduct.Quantity = request.Quantity;
+                        newProduct.UnitPrice = request.UnitPrice;
+                        newProduct.Cost = request.Cost;
+                        newProduct.ImageURL = request.ImageURL;
+
+                        DB.Products.Update(newProduct);
+                        DB.SaveChanges();
+                        R.Success = true;
+                        R.Message = "Product updated succesful";
+                    }
+                    catch (Exception ex)
+                    {
+                        R.Message = ex.Message;
+                    }
+                    return R;
+            }           
+        }       
+        public Response DeleteProduct(int id)
+        {
+            Response R = new Response();
+            using (AthanasiaContext DB = new AthanasiaContext())
+            {
+                try
+                {
+                    var newProduct = new Product();
+                    newProduct = DB.Products.Find(id);
+                    DB.Products.Remove(newProduct);
+                    DB.SaveChanges();
+                    R.Success = true;
+                    R.Message = "Product " + id + " deleted succesfully";
+                }
+                catch (Exception ex)
+                {
+                    R.Message = ex.Message;
+                }
+                return R;
+            }
+        }
+    }   
 }
