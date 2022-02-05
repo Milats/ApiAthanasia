@@ -10,6 +10,7 @@ namespace ApiAthanasia.Controllers
     [ApiController]
     public class SaleDetailsController : ControllerBase
     {
+        #region GetDetailsBySaleID
         [HttpGet("{id:int}")]
         [Authorize(Roles = "admin, client")]
         public IActionResult Get(int id)
@@ -32,5 +33,6 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
     }
 }

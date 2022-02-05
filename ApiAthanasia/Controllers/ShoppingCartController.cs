@@ -12,21 +12,28 @@ namespace ApiAthanasia.Controllers
     [Authorize(Roles = "client, admin")]
     public class ShoppingCartController : ControllerBase
     {
+        #region Instance
         private IShoppingCartService _cart;
         public ShoppingCartController(IShoppingCartService cart)
         {
             this._cart = cart;
         }
+        #endregion
 
-
+        #region GetCartByUserID
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "client")]
         public IActionResult Get(int id)
         {
             Response R = new Response();
             R = this._cart.GetCartByIDUserClient(id);
             return Ok(R);
         }
+        #endregion
+
+        #region AddUpdateCart
         [HttpPost]
+        [Authorize(Roles = "client")]
         public IActionResult Add(ShoppingCartRequest request)
         {
             Response R = new Response();
@@ -39,13 +46,17 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
 
+        #region DeleteCart
         [HttpDelete("{user:int}")]
+        [Authorize(Roles = "client")]
         public IActionResult Delete(int user)
         {
             Response R = new Response();
             R = this._cart.DeleteCartByUserID(user);
             return Ok(R);
         }
+        #endregion
     }
 }

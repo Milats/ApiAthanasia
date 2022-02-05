@@ -13,13 +13,16 @@ namespace ApiAthanasia.Controllers
     [ApiController]
     public class SaleController : ControllerBase
     {
+        #region Instance
         private ISaleService _sale;
         public SaleController(ISaleService sale)
         {
             this._sale = sale;
         }
+        #endregion
 
-        [Authorize(Roles = "admin, client")]
+        #region GetAllSales
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -41,6 +44,9 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
+
+        #region GetSalesByUserID
 
         [HttpGet("{user:int}")]
         [Authorize(Roles = "admin, client")]
@@ -64,7 +70,9 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
 
+        #region AddSale
         [Authorize(Roles = "client")]
         [HttpPost]
         public IActionResult Add(SaleRequest saleRequested)
@@ -85,5 +93,6 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
     }
 }

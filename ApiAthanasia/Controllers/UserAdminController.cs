@@ -11,11 +11,15 @@ namespace ApiAthanasia.Controllers
     [ApiController]
     public class UserAdminController : ControllerBase
     {
+        #region Instance
         private IUserAdminService _userAdminService;
         public UserAdminController(IUserAdminService userAdminService)
         {
             _userAdminService = userAdminService;
         }
+        #endregion
+
+        #region LoginAdmin
         [HttpPost("login")]
         public IActionResult Authentification([FromBody] AuthRequest model)
         {
@@ -33,5 +37,6 @@ namespace ApiAthanasia.Controllers
 
             return Ok(R);
         }
+        #endregion
     }
 }

@@ -80,7 +80,6 @@ namespace ApiAthanasia.Controllers
         #endregion
 
         #region UpdateProduct
-
         [HttpPost("{id:int}")]
         [Authorize(Roles = "admin")]
         public IActionResult UpdateProduct(ProductRequest request, int id)
@@ -92,7 +91,6 @@ namespace ApiAthanasia.Controllers
         #endregion
 
         #region DeleteProduct
-
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "admin")]
         public IActionResult DeleteProduct(int id)

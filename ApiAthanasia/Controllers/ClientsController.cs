@@ -99,7 +99,7 @@ namespace ApiAthanasia.Controllers
 
         #region DeleteClient
         [HttpDelete("{id:int}")]
-        [Authorize(Roles = "admin, client")]
+        [Authorize(Roles = "admin")]
         public IActionResult DeleteClient(int id)
         {
             Response R = new Response();
