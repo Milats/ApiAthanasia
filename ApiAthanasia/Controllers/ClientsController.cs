@@ -12,11 +12,15 @@ namespace ApiAthanasia.Controllers
     [ApiController]
     public class ClientsController : ControllerBase
     {
+        #region Instace
         private IClientsService _client;
         public ClientsController(IClientsService client)
         {
             this._client = client;
         }
+        #endregion
+
+        #region GetAllClients
         [HttpGet]
         [Authorize(Roles = "admin")]
         public IActionResult Get()
@@ -39,6 +43,9 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
+
+        #region GetClientByID
         [HttpGet("{id:int}")]
         [Authorize(Roles = "admin, client")]
         public IActionResult GetSpecifiedClient(int id)
@@ -60,6 +67,9 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
+
+        #region AddNewClient
         [HttpPost]
         public IActionResult Add(NewClientRequest client)
         {
@@ -74,5 +84,28 @@ namespace ApiAthanasia.Controllers
             }
             return Ok(R);
         }
+        #endregion
+
+        #region UpdateClient
+        [HttpPost("{id:int}")]
+        [Authorize(Roles = "admin, client")]
+        public IActionResult UpdateClient(UpdateUserRequest request, int id)
+        {
+            Response R = new Response();
+            R = this._client.UpdateClient(request, id);
+            return Ok(R);
+        }
+        #endregion
+
+        #region DeleteClient
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "admin, client")]
+        public IActionResult DeleteClient(int id)
+        {
+            Response R = new Response();
+            R = this._client.DeleteClient(id);
+            return Ok(R);
+        }
+        #endregion
     }
 }

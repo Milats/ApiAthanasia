@@ -13,5 +13,13 @@ namespace ApiAthanasia.Services.ClientsServices
         {
             return this.Add(client);
         }
+        public Response UpdateClient(UpdateUserRequest request, int id)
+        {
+            return this.UpdateClient(request, id);
+        }
+        public Response DeleteClient(int id)
+        {
+            return this.DeleteClient(id);
+        }
     }
 }

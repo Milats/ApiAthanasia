@@ -61,5 +61,54 @@ namespace ApiAthanasia.Services.ClientsServices
                 }
             }
         }
+        public Response UpdateClient(UpdateUserRequest request, int id)
+        {
+            Response R = new Response();
+            using (AthanasiaContext DB = new AthanasiaContext())
+            {
+                try
+                {
+                    var client = DB.UserClients.Find(id);
+                    if (client != null)
+                    {
+                        client.Name = request.Name;
+                        client.Password = Encrypt.GetSHA256(request.Password);
+                        DB.UserClients.Update(client);
+                        DB.SaveChanges();
+                        R.Success = true;
+                        R.Message = "Client " + id + " updated succesfully";
+                    } else
+                    {
+                        R.Message = "Client doesn't exists";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    R.Message = ex.Message;
+                }
+                return R;
+            }
+        }
+        public Response DeleteClient(int id)
+        {
+            Response R = new Response();
+            using (AthanasiaContext DB = new AthanasiaContext())
+            {
+                try
+                {
+                    var client = new UserClient();
+                    client = DB.UserClients.Find(id);
+                    DB.UserClients.Remove(client);
+                    DB.SaveChanges();
+                    R.Success = true;
+                    R.Message = "Client " + id + " deleted succesfully";
+                }
+                catch (Exception ex)
+                {
+                    R.Message = ex.Message;
+                }
+                return R;
+            }
+        }
     }
 }
