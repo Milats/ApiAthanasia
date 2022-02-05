@@ -8,7 +8,6 @@ namespace ApiAthanasia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "admin, client")]
     public class ProductController : ControllerBase
     {
         [HttpGet]

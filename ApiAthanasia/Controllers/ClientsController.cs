@@ -10,7 +10,6 @@ namespace ApiAthanasia.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "admin")]
     public class ClientsController : ControllerBase
     {
         private IClientsService _client;
@@ -19,6 +18,7 @@ namespace ApiAthanasia.Controllers
             this._client = client;
         }
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Get()
         {
             Response R = new Response();
@@ -40,6 +40,7 @@ namespace ApiAthanasia.Controllers
             return Ok(R);
         }
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "admin, client")]
         public IActionResult GetSpecifiedClient(int id)
         {
             Response R = new Response();

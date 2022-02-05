@@ -2,6 +2,7 @@ using ApiAthanasia.Models.Common;
 using ApiAthanasia.Services;
 using ApiAthanasia.Services.ClientsServices;
 using ApiAthanasia.Services.SaleServices;
+using ApiAthanasia.Services.ShoppingCartServices;
 using ApiAthanasia.Services.UserServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -56,6 +57,7 @@ builder.Services.AddScoped<ISaleService, SaleService>();
 builder.Services.AddScoped<IUserClientService, UserClientService>();
 builder.Services.AddScoped<IUserAdminService, UserAdminService>();
 builder.Services.AddScoped<IClientsService, ClientsService>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 #endregion
 var app = builder.Build();
 

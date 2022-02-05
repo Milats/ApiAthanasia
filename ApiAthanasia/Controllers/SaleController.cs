@@ -19,7 +19,7 @@ namespace ApiAthanasia.Controllers
             this._sale = sale;
         }
 
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, client")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -32,6 +32,29 @@ namespace ApiAthanasia.Controllers
                         .ToList();
                     R.Success = true;
                     R.Message = "SaleGet Succesful";
+                    R.Data = saleList;
+                }
+            }
+            catch (Exception ex)
+            {
+                R.Message = ex.Message;
+            }
+            return Ok(R);
+        }
+
+        [HttpGet("{user:int}")]
+        [Authorize(Roles = "admin, client")]
+        public IActionResult Get(int user)
+        {
+            Response R = new Response();
+            try
+            {
+                using (AthanasiaContext DB = new AthanasiaContext())
+                {
+                    var saleList = DB.Sales.Where(sale => sale.IduserClient == user).OrderByDescending(b => b.Date)
+                        .ToList();
+                    R.Success = true;
+                    R.Message = "SaleSpecified Get Succesful";
                     R.Data = saleList;
                 }
             }

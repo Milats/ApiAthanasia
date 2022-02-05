@@ -1,5 +1,6 @@
 ﻿using ApiAthanasia.Models;
 using ApiAthanasia.Models.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace ApiAthanasia.Controllers
     public class SaleDetailsController : ControllerBase
     {
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "admin, client")]
         public IActionResult Get(int id)
         {
             Response R = new Response();
