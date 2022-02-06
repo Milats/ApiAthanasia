@@ -7,11 +7,11 @@ namespace ApiAthanasia.Models.Request
         [Required]
         public string name { get; set; }
         [NewClientEmailExistsAttribute(ErrorMessage =
-            "Email alreasy exists")]
+            "Email already exists")]
         public string email { get; set; }
         public string password { get; set; }
         [Required]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Cedula with incorret number of digits")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Invalid Cedula")]
         [NewClientCedulaExistsAtrribute(ErrorMessage =
             "Cedula already exists")]
         public string cedula { get; set; }

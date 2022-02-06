@@ -22,7 +22,7 @@ namespace ApiAthanasia.Controllers
 
         #region GetAllClients
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, client")]
         public IActionResult Get()
         {
             Response R = new Response();
