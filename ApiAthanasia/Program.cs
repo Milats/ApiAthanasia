@@ -20,6 +20,7 @@ var MyAllowSpecificOrigins = "MiCors";
                       {
                           builder.WithOrigins("*");
                           builder.WithHeaders("*");
+                          builder.WithMethods("*");
                       });
     });
 #endregion
