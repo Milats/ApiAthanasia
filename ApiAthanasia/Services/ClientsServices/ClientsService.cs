@@ -72,7 +72,6 @@ namespace ApiAthanasia.Services.ClientsServices
                     if (client != null)
                     {
                         client.Name = request.Name;
-                        client.Password = Encrypt.GetSHA256(request.Password);
                         DB.UserClients.Update(client);
                         DB.SaveChanges();
                         R.Success = true;
